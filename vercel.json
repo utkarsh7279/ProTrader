@@ -1,0 +1,18 @@
+{
+  "buildCommand": "npm install && npx prisma generate && npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev",
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "REDIS_URL": "@redis_url",
+    "JWT_SECRET": "@jwt_secret",
+    "NEXTAUTH_SECRET": "@nextauth_secret"
+  },
+  "build": {
+    "env": {
+      "DATABASE_URL": "@database_url"
+    }
+  }
+}

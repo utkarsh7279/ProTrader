@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("USER")  // "USER" or "ADMIN"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  accounts     Account[]
+}
+
+model Account {
+  id        String   @id @default(uuid())
+  userId    String
+  balance   Float    @default(0)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  orders    Order[]
+  holdings  Holding[]
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  accountId String
+  symbol    String
+  type      String   // "BUY" or "SELL"
+  qty       Float
+  price     Float
+  status    String   @default("PENDING")  // "PENDING", "FILLED", "REJECTED", "CANCELLED"
+  createdAt DateTime @default(now())
+
+  account   Account @relation(fields: [accountId], references: [id])
+}
+
+model Holding {
+  id        String   @id @default(uuid())
+  accountId String
+  symbol    String
+  qty       Float
+  avgPrice  Float
+
+  account   Account @relation(fields: [accountId], references: [id])
+}
+
+model PriceHistory {
+  id        String   @id @default(uuid())
+  symbol    String
+  price     Float
+  high      Float    @default(0)
+  low       Float    @default(0)
+  volume    Float    @default(0)
+  timestamp DateTime @default(now())
+
+  @@index([symbol, timestamp])
+}

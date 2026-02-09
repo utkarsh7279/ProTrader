@@ -1,33 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zerodha Risk Platform
 
-## Getting Started
+A Next.js-based trading risk management platform with real-time monitoring, portfolio analysis, and risk controls.
 
-First, run the development server:
+## 🚀 Quick Start
+
+### Local Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Setup environment variables
+cp .env.example .env.local
+# Edit .env.local with your settings
+
+# Run Prisma migrations
+npx prisma generate
+npx prisma db push
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📦 Free Deployment (Vercel + GitHub)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Deploy for **$0/month** using Vercel with free database and Redis services.
 
-## Learn More
+### Quick Deploy
 
-To learn more about Next.js, take a look at the following resources:
+1. **Setup Free Services**
+   - Database: [Supabase](https://supabase.com) (Free PostgreSQL)
+   - Redis: [Upstash](https://upstash.com) (Free Redis)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Push to GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+   git push -u origin main
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Deploy to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Add environment variables (see below)
+   - Deploy!
+
+### Environment Variables
+
+Add these in Vercel dashboard:
+
+```bash
+DATABASE_URL=postgresql://postgres:[PASSWORD]@db.[PROJECT].supabase.co:5432/postgres
+REDIS_URL=rediss://default:[PASSWORD]@[ENDPOINT].upstash.io:6379
+JWT_SECRET=[generate with: openssl rand -base64 32]
+NEXTAUTH_SECRET=[generate with: openssl rand -base64 32]
+NEXTAUTH_URL=https://your-app.vercel.app
+```
+
+📖 **Full deployment guide**: See [VERCEL_DEPLOYMENT.md](../VERCEL_DEPLOYMENT.md)
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Database**: PostgreSQL (Prisma ORM)
+- **Cache**: Redis
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Auth**: NextAuth.js
+- **Real-time**: WebSocket Server
+
+## 📁 Project Structure
+
+```
+src/
+├── app/              # Next.js app router pages
+│   ├── api/         # API routes
+│   ├── dashboard/   # Dashboard page
+│   ├── analysis/    # Analysis page
+│   └── settings/    # Settings page
+├── components/      # React components
+│   └── ui/         # shadcn/ui components
+└── lib/            # Utilities and helpers
+```
+
+## 🔧 Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npx prisma studio    # Open Prisma database GUI
+```
+
+## 📚 Documentation
+
+- [API Documentation](../docs/API.md)
+- [Architecture](../docs/ARCHITECTURE.md)
+- [Design System](../docs/DESIGN_SYSTEM.md)
+- [Testing Guide](../docs/TESTING.md)
+
+## 🤝 Contributing
+
+This is a private project. For questions or issues, contact the development team.
+
+## 📄 License
+
+Proprietary - All rights reserved
 
 ## Deploy on Vercel
 
