@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -20,6 +22,10 @@ const nextConfig = {
   
   // Custom webpack config
   webpack: (config, { isServer }) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      '@': path.resolve(__dirname, 'src'),
+    };
     // WebSocket dependencies
     config.externals.push({
       'utf-8-validate': 'commonjs utf-8-validate',
