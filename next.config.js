@@ -5,9 +5,6 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   
-  // Enable standalone output for Docker
-  output: 'standalone',
-  
   // Disable x-powered-by header
   poweredByHeader: false,
   
