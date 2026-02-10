@@ -81,15 +81,9 @@ export const sendOTPEmail = async (email: string, otp: string, name: string): Pr
     return true;
   }
 
-  // Send actual email
+  // Send actual email to inbox
   try {
     const transporter = getEmailTransporter();
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'TradeVault Pro - Email Verification OTP',
-      html: `
         <div style="font-family: Arial, sans-serif; background-color: #0f172a; padding: 20px; border-radius: 8px;">
           <div style="max-width: 600px; margin: 0 auto; background-color: #1e293b; padding: 30px; border-radius: 8px; border: 1px solid #334155;">
             <h2 style="color: #3b82f6; text-align: center; margin-bottom: 20px;">Email Verification</h2>
@@ -123,16 +117,11 @@ export const sendOTPEmail = async (email: string, otp: string, name: string): Pr
       `,
     };
 
-    // In development, log instead of sending
-    if (process.env.NODE_ENV !== 'production') {
-      console.log(`[Email] Would send to ${email}:\n${mailOptions.html}`);
-      return true;
-    }
-
-    await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Email sent successfully to:', email);
     return true;
   } catch (error) {
-    console.error('Error sending OTP email:', error);
+    console.error('❌ Error sending OTP email:', error);
     return false;
   }
 };
