@@ -1,6 +1,5 @@
 {
   "framework": "nextjs",
   "buildCommand": "next build",
-  "outputDirectory": ".next",
-  "envPrefix": "NEXT_PUBLIC_"
+  "outputDirectory": ".next"
 }
