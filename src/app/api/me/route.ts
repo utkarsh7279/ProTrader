@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { verifyToken } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 interface DecodedToken {
   userId: string;
 }
