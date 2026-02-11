@@ -140,15 +140,34 @@ export default function SettingsPage() {
     });
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userName");
-    document.cookie = "userToken=; path=/; max-age=0";
-    toast.success("Logged out", {
-      description: "You have been signed out",
-    });
-    router.push("/login");
+  const handleLogout = async () => {
+    try {
+      // Call logout API to clear server-side session
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      // Clear all client-side data
+      localStorage.removeItem("token");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userSettings");
+      localStorage.removeItem("refreshRate");
+      localStorage.removeItem("timezone");
+      
+      toast.success("Logged out", {
+        description: "You have been signed out",
+      });
+
+      // Redirect to login page
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error("Logout failed", {
+        description: "Could not sign out",
+      });
+    }
   };
 
   return (
