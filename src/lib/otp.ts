@@ -1,6 +1,10 @@
 import nodemailer from 'nodemailer';
+import Redis from 'ioredis';
 
-// In-memory OTP store (in production, use Redis)
+// Redis client for OTP storage
+const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
+
+// Store for development (when Redis not available)
 const otpStore = new Map<string, { code: string; expiresAt: number }>();
 
 // Initialize email transporter (Gmail example - configure with your credentials)
@@ -20,44 +24,81 @@ export const generateOTP = (): string => {
 };
 
 // Store OTP with expiration (5 minutes)
-export const storeOTP = (email: string): string => {
+export const storeOTP = async (email: string): Promise<string> => {
   const otp = generateOTP();
-  const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes
+  const expirationSeconds = 5 * 60; // 5 minutes
 
-  otpStore.set(email, { code: otp, expiresAt });
-
-  // Log OTP for development (remove in production)
-  console.log(`[OTP] Email: ${email}, Code: ${otp}, Expires: ${new Date(expiresAt).toISOString()}`);
+  try {
+    // Try to use Redis
+    if (redis) {
+      await redis.setex(`otp:${email}`, expirationSeconds, otp);
+      console.log(`[OTP] Redis: Stored OTP for ${email}, expires in ${expirationSeconds}s`);
+    } else {
+      throw new Error('Redis not available');
+    }
+  } catch (err) {
+    // Fallback to in-memory storage for development
+    console.log(`[OTP] Fallback to memory: ${err}`);
+    const expiresAt = Date.now() + expirationSeconds * 1000;
+    otpStore.set(email, { code: otp, expiresAt });
+    console.log(`[OTP] Email: ${email}, Code: ${otp}, Expires: ${new Date(expiresAt).toISOString()}`);
+  }
 
   return otp;
 };
 
 // Verify OTP
-export const verifyOTP = (email: string, otp: string): boolean => {
-  const stored = otpStore.get(email);
+export const verifyOTP = async (email: string, otp: string): Promise<boolean> => {
+  try {
+    // Try Redis first
+    if (redis) {
+      const storedOtp = await redis.get(`otp:${email}`);
+      
+      if (!storedOtp) {
+        console.log(`[OTP Verify] No OTP found in Redis for ${email}`);
+        return false;
+      }
 
-  if (!stored) {
-    console.log(`[OTP Verify] No OTP found for ${email}`);
-    return false;
-  }
+      if (storedOtp !== otp) {
+        console.log(`[OTP Verify] OTP mismatch for ${email}. Expected: ${storedOtp}, Got: ${otp}`);
+        return false;
+      }
 
-  // Check expiration
-  if (Date.now() > stored.expiresAt) {
-    console.log(`[OTP Verify] OTP expired for ${email}`);
+      // OTP verified, delete from Redis
+      await redis.del(`otp:${email}`);
+      console.log(`[OTP Verify] ✓ OTP verified successfully for ${email}`);
+      return true;
+    } else {
+      throw new Error('Redis not available');
+    }
+  } catch (err) {
+    // Fallback to in-memory storage for development
+    console.log(`[OTP Verify] Fallback to memory: ${err}`);
+    const stored = otpStore.get(email);
+
+    if (!stored) {
+      console.log(`[OTP Verify] No OTP found for ${email}`);
+      return false;
+    }
+
+    // Check expiration
+    if (Date.now() > stored.expiresAt) {
+      console.log(`[OTP Verify] OTP expired for ${email}`);
+      otpStore.delete(email);
+      return false;
+    }
+
+    // Check OTP match
+    if (stored.code !== otp) {
+      console.log(`[OTP Verify] OTP mismatch for ${email}. Expected: ${stored.code}, Got: ${otp}`);
+      return false;
+    }
+
+    // OTP verified, remove from store
+    console.log(`[OTP Verify] ✓ OTP verified successfully for ${email}`);
     otpStore.delete(email);
-    return false;
+    return true;
   }
-
-  // Check OTP match
-  if (stored.code !== otp) {
-    console.log(`[OTP Verify] OTP mismatch for ${email}. Expected: ${stored.code}, Got: ${otp}`);
-    return false;
-  }
-
-  // OTP verified, remove from store
-  console.log(`[OTP Verify] ✓ OTP verified successfully for ${email}`);
-  otpStore.delete(email);
-  return true;
 };
 
 // Send OTP email
@@ -133,10 +174,22 @@ export const sendOTPEmail = async (email: string, otp: string, name: string): Pr
 };
 
 // Get OTP expiration time remaining (in seconds)
-export const getOTPExpirationTime = (email: string): number => {
-  const stored = otpStore.get(email);
-  if (!stored) return 0;
+export const getOTPExpirationTime = async (email: string): Promise<number> => {
+  try {
+    // Try Redis first
+    if (redis) {
+      const ttl = await redis.ttl(`otp:${email}`);
+      return Math.max(0, ttl); // Redis returns -1 if key doesn't exist, -2 if expired
+    } else {
+      throw new Error('Redis not available');
+    }
+  } catch (err) {
+    // Fallback to in-memory storage for development
+    console.log(`[OTP Expiry] Fallback to memory: ${err}`);
+    const stored = otpStore.get(email);
+    if (!stored) return 0;
 
-  const remaining = Math.max(0, Math.floor((stored.expiresAt - Date.now()) / 1000));
-  return remaining;
+    const remaining = Math.max(0, Math.floor((stored.expiresAt - Date.now()) / 1000));
+    return remaining;
+  }
 };

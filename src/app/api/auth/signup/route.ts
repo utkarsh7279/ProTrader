@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       }
 
       // Generate and store OTP
-      const otpCode = storeOTP(email);
+      const otpCode = await storeOTP(email);
       
       // Send OTP email
       const emailSent = await sendOTPEmail(email, otpCode, name);
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       const { verifyOTP } = await import('@/lib/otp');
 
       // Verify OTP
-      if (!verifyOTP(email, otp.toString())) {
+      if (!(await verifyOTP(email, otp.toString()))) {
         return NextResponse.json(
           { message: 'Invalid or expired OTP' },
           { status: 401 }

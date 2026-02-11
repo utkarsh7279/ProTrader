@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       // Resend OTP logic
       const { storeOTP, sendOTPEmail } = await import('@/lib/otp');
       
-      const otpCode = storeOTP(email);
+      const otpCode = await storeOTP(email);
       const emailSent = await sendOTPEmail(email, otpCode, 'User');
 
       if (!emailSent) {
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
 
     if (action === 'check-expiry') {
       // Check remaining time for OTP
-      const expiryTime = getOTPExpirationTime(email);
+      const expiryTime = await getOTPExpirationTime(email);
 
       if (expiryTime <= 0) {
         return NextResponse.json(
