@@ -119,13 +119,21 @@ export async function POST(request: NextRequest) {
       // Hash password
       const passwordHash = await bcrypt.hash(signupData.password, 10);
 
-      // Create user with verified email
+      // Create user with account in transaction
       const user = await prisma.user.create({
         data: {
           name: signupData.name,
           email: signupData.email,
           passwordHash,
-          role: 'USER',
+          role: 'operator',
+          account: {
+            create: {
+              balance: 0,
+            },
+          },
+        },
+        include: {
+          account: true,
         },
       }).catch((err) => {
         console.error('User creation error:', err);

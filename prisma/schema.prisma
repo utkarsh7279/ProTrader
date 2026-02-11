@@ -9,57 +9,60 @@ datasource db {
 
 model User {
   id           String   @id @default(uuid())
-  name         String
+  name         String?
   email        String   @unique
   passwordHash String
-  role         String   @default("USER")  // "USER" or "ADMIN"
+  role         String   @default("operator")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  accounts     Account[]
+  account      Account?
+  orders       Order[]
+  holdings     Holding[]
 }
 
 model Account {
   id        String   @id @default(uuid())
-  userId    String
+  userId    String   @unique
   balance   Float    @default(0)
   createdAt DateTime @default(now())
 
-  user      User     @relation(fields: [userId], references: [id])
-  orders    Order[]
-  holdings  Holding[]
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Order {
   id        String   @id @default(uuid())
-  accountId String
+  userId    String
   symbol    String
-  type      String   // "BUY" or "SELL"
-  qty       Float
+  qty       Int
   price     Float
-  status    String   @default("PENDING")  // "PENDING", "FILLED", "REJECTED", "CANCELLED"
+  status    String   @default("pending")
   createdAt DateTime @default(now())
 
-  account   Account @relation(fields: [accountId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Holding {
   id        String   @id @default(uuid())
-  accountId String
+  userId    String
   symbol    String
-  qty       Float
+  qty       Int
   avgPrice  Float
 
-  account   Account @relation(fields: [accountId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model PriceHistory {
   id        String   @id @default(uuid())
   symbol    String
   price     Float
-  high      Float    @default(0)
-  low       Float    @default(0)
-  volume    Float    @default(0)
+  high      Float?
+  low       Float?
+  volume    BigInt?
   timestamp DateTime @default(now())
 
   @@index([symbol, timestamp])
