@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
 import { getUserFromRequest } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
@@ -98,8 +100,8 @@ export async function GET(request: NextRequest) {
           history: prices.map((p) => ({
             price: parseFloat(p.price.toFixed(2)),
             timestamp: p.timestamp.toISOString(),
-            high: parseFloat(p.high.toFixed(2)),
-            low: parseFloat(p.low.toFixed(2)),
+            high: p.high ? parseFloat(p.high.toFixed(2)) : p.price,
+            low: p.low ? parseFloat(p.low.toFixed(2)) : p.price,
             volume: p.volume,
           })),
           stats: {

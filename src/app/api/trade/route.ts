@@ -260,6 +260,7 @@ export async function POST(request: NextRequest) {
         await prisma.holding.create({
           data: {
             accountId: account.id,
+            userId: user.userId,
             symbol,
             qty,
             avgPrice: price,
@@ -302,6 +303,7 @@ export async function POST(request: NextRequest) {
     const order = await prisma.order.create({
       data: {
         accountId: account.id,
+        userId: user.userId,
         symbol,
         type,
         qty,

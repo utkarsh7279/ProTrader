@@ -28,31 +28,40 @@ model Account {
   createdAt DateTime @default(now())
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders    Order[]
+  holdings  Holding[]
 }
 
 model Order {
   id        String   @id @default(uuid())
+  accountId String
   userId    String
   symbol    String
+  type      String   @default("BUY")
   qty       Int
   price     Float
   status    String   @default("pending")
   createdAt DateTime @default(now())
 
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([accountId])
   @@index([userId])
 }
 
 model Holding {
   id        String   @id @default(uuid())
+  accountId String
   userId    String
   symbol    String
   qty       Int
   avgPrice  Float
 
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([accountId])
   @@index([userId])
 }
 
