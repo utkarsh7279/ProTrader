@@ -1,0 +1,132 @@
+
+> trading-platform-nextjs@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+  - Environments: .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/33) ...
+Token verification error: B [Error]: Dynamic server usage: Route /api/auth/verify couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29465)
+    at l (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/auth/verify/route.js:1:744)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/server/lib/trace/tracer.js:122:103 {
+  description: "Route /api/auth/verify couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Orders error: B [Error]: Dynamic server usage: Route /api/orders couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29465)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/me/route.js:1:1869
+    at u (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/me/route.js:1:2130)
+    at d (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/orders/route.js:1:704)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093) {
+  description: "Route /api/orders couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+Prices error: B [Error]: Dynamic server usage: Route /api/prices couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29465)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/prices/route.js:1:3045
+    at i (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/prices/route.js:1:3306)
+    at p (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/prices/route.js:1:702)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093) {
+  description: "Route /api/prices couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+   Generating static pages (8/33) 
+Analytics error: B [Error]: Dynamic server usage: Route /api/analytics couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29465)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/analytics/route.js:1:5007
+    at n (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/analytics/route.js:1:5268)
+    at d (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/analytics/route.js:1:1382)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093) {
+  description: "Route /api/analytics couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+   Generating static pages (16/33) 
+   Generating static pages (24/33) 
+Risk calculation error: B [Error]: Dynamic server usage: Route /api/risk couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29465)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/trade/route.js:1:6262
+    at i (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/trade/route.js:1:6523)
+    at p (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/.next/server/app/api/risk/route.js:1:1388)
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093) {
+  description: "Route /api/risk couldn't be rendered statically because it used `request.headers`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+ ✓ Generating static pages (33/33)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    41.7 kB         148 kB
+├ ○ /_not-found                          876 B          88.4 kB
+├ ○ /analysis                            112 kB          261 kB
+├ ○ /api                                 0 B                0 B
+├ ○ /api-docs                            0 B                0 B
+├ ƒ /api/analytics                       0 B                0 B
+├ ƒ /api/auth/login                      0 B                0 B
+├ ƒ /api/auth/logout                     0 B                0 B
+├ ƒ /api/auth/register                   0 B                0 B
+├ ƒ /api/auth/signup                     0 B                0 B
+├ ƒ /api/auth/verify                     0 B                0 B
+├ ƒ /api/auth/verify-otp                 0 B                0 B
+├ ○ /api/health                          0 B                0 B
+├ ƒ /api/me                              0 B                0 B
+├ ƒ /api/orders                          0 B                0 B
+├ ƒ /api/portfolio                       0 B                0 B
+├ ƒ /api/prices                          0 B                0 B
+├ ƒ /api/risk                            0 B                0 B
+├ ƒ /api/trade                           0 B                0 B
+├ ƒ /api/ws                              0 B                0 B
+├ ○ /components                          7.6 kB          144 kB
+├ ○ /controls                            3.19 kB         134 kB
+├ ○ /dashboard                           14.8 kB         167 kB
+├ ○ /execution                           4.14 kB         153 kB
+├ ○ /login                               3.33 kB         110 kB
+├ ○ /prices                              2.52 kB        90.1 kB
+├ ○ /settings                            5.66 kB         155 kB
+├ ○ /signup                              4.49 kB         111 kB
+├ ○ /test                                5.38 kB         144 kB
+├ ○ /test-auth                           1.53 kB        89.1 kB
+└ ○ /verify                              1.92 kB         108 kB
++ First Load JS shared by all            87.5 kB
+  ├ chunks/117-2963673998adf727.js       31.9 kB
+  ├ chunks/fd9d1056-d01e9804f4c81514.js  53.6 kB
+  └ other shared chunks (total)          2 kB
+
+
+ƒ Middleware                             26.6 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

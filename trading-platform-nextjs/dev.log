@@ -1,0 +1,48 @@
+
+> trading-platform-nextjs@0.1.0 dev
+> next dev
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/utkarshraj/zerodha-risk-platform/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/utkarshraj/zerodha-risk-platform/trading-platform-nextjs/package-lock.json
+
+▲ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.50.13.86:3000
+- Environments: .env.local
+
+✓ Starting...
+✓ Ready in 542ms
+ GET / 200 in 712ms (compile: 594ms, render: 118ms)
+prisma:query SELECT "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."passwordHash", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt" FROM "public"."User" WHERE ("public"."User"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query INSERT INTO "public"."User" ("id","name","email","passwordHash","role","createdAt","updatedAt") VALUES ($1,$2,$3,$4,CAST($5::text AS "public"."Role"),$6,$7) RETURNING "public"."User"."id", "public"."User"."name", "public"."User"."email", "public"."User"."passwordHash", "public"."User"."role"::text, "public"."User"."createdAt", "public"."User"."updatedAt"
+ POST /api/auth/register 201 in 261ms (compile: 116ms, render: 145ms)
+prisma:query SELECT "public"."Account"."id", "public"."Account"."userId", "public"."Account"."balance", "public"."Account"."createdAt" FROM "public"."Account" WHERE "public"."Account"."userId" = $1 LIMIT $2 OFFSET $3
+prisma:query INSERT INTO "public"."Account" ("id","userId","balance","createdAt") VALUES ($1,$2,$3,$4) RETURNING "public"."Account"."id", "public"."Account"."userId", "public"."Account"."balance", "public"."Account"."createdAt"
+prisma:query UPDATE "public"."Account" SET "balance" = $1 WHERE ("public"."Account"."id" = $2 AND 1=1) RETURNING "public"."Account"."id", "public"."Account"."userId", "public"."Account"."balance", "public"."Account"."createdAt"
+prisma:query SELECT "public"."Holding"."id", "public"."Holding"."accountId", "public"."Holding"."symbol", "public"."Holding"."qty", "public"."Holding"."avgPrice" FROM "public"."Holding" WHERE ("public"."Holding"."accountId" = $1 AND "public"."Holding"."symbol" = $2) LIMIT $3 OFFSET $4
+prisma:query INSERT INTO "public"."Holding" ("id","accountId","symbol","qty","avgPrice") VALUES ($1,$2,$3,$4,$5) RETURNING "public"."Holding"."id", "public"."Holding"."accountId", "public"."Holding"."symbol", "public"."Holding"."qty", "public"."Holding"."avgPrice"
+prisma:query INSERT INTO "public"."Order" ("id","accountId","symbol","type","qty","price","status","createdAt") VALUES ($1,$2,$3,CAST($4::text AS "public"."OrderType"),$5,$6,CAST($7::text AS "public"."OrderStatus"),$8) RETURNING "public"."Order"."id", "public"."Order"."accountId", "public"."Order"."symbol", "public"."Order"."type"::text, "public"."Order"."qty", "public"."Order"."price", "public"."Order"."status"::text, "public"."Order"."createdAt"
+ POST /api/trade 200 in 108ms (compile: 54ms, render: 54ms)
+prisma:query SELECT "public"."Account"."id", "public"."Account"."userId", "public"."Account"."balance", "public"."Account"."createdAt" FROM "public"."Account" WHERE "public"."Account"."userId" = $1 LIMIT $2 OFFSET $3
+prisma:query UPDATE "public"."Account" SET "balance" = $1 WHERE ("public"."Account"."id" = $2 AND 1=1) RETURNING "public"."Account"."id", "public"."Account"."userId", "public"."Account"."balance", "public"."Account"."createdAt"
+prisma:query SELECT "public"."Holding"."id", "public"."Holding"."accountId", "public"."Holding"."symbol", "public"."Holding"."qty", "public"."Holding"."avgPrice" FROM "public"."Holding" WHERE ("public"."Holding"."accountId" = $1 AND "public"."Holding"."symbol" = $2) LIMIT $3 OFFSET $4
+prisma:query UPDATE "public"."Holding" SET "qty" = $1, "avgPrice" = $2 WHERE ("public"."Holding"."id" = $3 AND 1=1) RETURNING "public"."Holding"."id", "public"."Holding"."accountId", "public"."Holding"."symbol", "public"."Holding"."qty", "public"."Holding"."avgPrice"
+prisma:query INSERT INTO "public"."Order" ("id","accountId","symbol","type","qty","price","status","createdAt") VALUES ($1,$2,$3,CAST($4::text AS "public"."OrderType"),$5,$6,CAST($7::text AS "public"."OrderStatus"),$8) RETURNING "public"."Order"."id", "public"."Order"."accountId", "public"."Order"."symbol", "public"."Order"."type"::text, "public"."Order"."qty", "public"."Order"."price", "public"."Order"."status"::text, "public"."Order"."createdAt"
+ POST /api/trade 200 in 46ms (compile: 5ms, render: 42ms)
+prisma:query SELECT "public"."Account"."id", "public"."Account"."userId", "public"."Account"."balance", "public"."Account"."createdAt" FROM "public"."Account" WHERE "public"."Account"."userId" = $1 LIMIT $2 OFFSET $3
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."Order"."id" FROM "public"."Order" WHERE ("public"."Order"."accountId" = $1 AND "public"."Order"."symbol" = $2) OFFSET $3) AS "sub"
+prisma:query SELECT "public"."Order"."id", "public"."Order"."accountId", "public"."Order"."symbol", "public"."Order"."type"::text, "public"."Order"."qty", "public"."Order"."price", "public"."Order"."status"::text, "public"."Order"."createdAt" FROM "public"."Order" WHERE ("public"."Order"."accountId" = $1 AND "public"."Order"."symbol" = $2) ORDER BY "public"."Order"."createdAt" DESC LIMIT $3 OFFSET $4
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."Order"."id" FROM "public"."Order" WHERE ("public"."Order"."accountId" = $1 AND "public"."Order"."symbol" = $2 AND "public"."Order"."type" = CAST($3::text AS "public"."OrderType") AND "public"."Order"."status" = CAST($4::text AS "public"."OrderStatus")) OFFSET $5) AS "sub"
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."Order"."id" FROM "public"."Order" WHERE ("public"."Order"."accountId" = $1 AND "public"."Order"."symbol" = $2 AND "public"."Order"."type" = CAST($3::text AS "public"."OrderType") AND "public"."Order"."status" = CAST($4::text AS "public"."OrderStatus")) OFFSET $5) AS "sub"
+prisma:query SELECT SUM("price") AS "_sum$price", SUM("qty") AS "_sum$qty" FROM (SELECT "public"."Order"."price", "public"."Order"."qty" FROM "public"."Order" WHERE ("public"."Order"."accountId" = $1 AND "public"."Order"."symbol" = $2 AND "public"."Order"."type" = CAST($3::text AS "public"."OrderType") AND "public"."Order"."status" = CAST($4::text AS "public"."OrderStatus")) OFFSET $5) AS "sub"
+prisma:query SELECT SUM("price") AS "_sum$price", SUM("qty") AS "_sum$qty" FROM (SELECT "public"."Order"."price", "public"."Order"."qty" FROM "public"."Order" WHERE ("public"."Order"."accountId" = $1 AND "public"."Order"."symbol" = $2 AND "public"."Order"."type" = CAST($3::text AS "public"."OrderType") AND "public"."Order"."status" = CAST($4::text AS "public"."OrderStatus")) OFFSET $5) AS "sub"
+ GET /api/orders?symbol=TCS&limit=10 200 in 490ms (compile: 459ms, render: 31ms)
+prisma:query SELECT "public"."Account"."id", "public"."Account"."userId", "public"."Account"."balance", "public"."Account"."createdAt" FROM "public"."Account" WHERE "public"."Account"."userId" = $1 LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."Order"."id", "public"."Order"."accountId", "public"."Order"."symbol", "public"."Order"."type"::text, "public"."Order"."qty", "public"."Order"."price", "public"."Order"."status"::text, "public"."Order"."createdAt" FROM "public"."Order" WHERE "public"."Order"."accountId" IN ($1) OFFSET $2
+prisma:query SELECT "public"."Holding"."id", "public"."Holding"."accountId", "public"."Holding"."symbol", "public"."Holding"."qty", "public"."Holding"."avgPrice" FROM "public"."Holding" WHERE "public"."Holding"."accountId" IN ($1) OFFSET $2
+ GET /api/analytics 200 in 251ms (compile: 209ms, render: 42ms)
+ GET /api-docs 200 in 66ms (compile: 63ms, render: 3ms)
