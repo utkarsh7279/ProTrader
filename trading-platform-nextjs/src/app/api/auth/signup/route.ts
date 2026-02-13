@@ -35,16 +35,23 @@ export async function POST(request: NextRequest) {
 
       // Generate and store OTP
       const otpCode = await storeOTP(email);
+      console.log('[SIGNUP] OTP generated and stored:', otpCode);
       
       // Send OTP email
+      console.log('[SIGNUP] Attempting to send OTP email to:', email);
       const emailSent = await sendOTPEmail(email, otpCode, name);
 
       if (!emailSent) {
+        console.error('[SIGNUP] ❌ Email sending failed for:', email);
         return NextResponse.json(
-          { message: 'Failed to send verification email' },
+          { 
+            message: 'Failed to send verification email. Check server logs for details.',
+            debug: process.env.NODE_ENV === 'development' ? 'Email credentials may be invalid or Gmail SMTP is blocked' : undefined
+          },
           { status: 500 }
         );
       }
+      console.log('[SIGNUP] ✓ Email sent successfully to:', email);
 
       // Store signup data temporarily (in production, use Redis or database)
       const tempData = {
