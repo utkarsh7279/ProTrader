@@ -32,6 +32,7 @@ const initRedis = () => {
       console.log('✓ Connected to Redis');
     });
     
+    console.log('[OTP] Redis client initialized with URL:', redisUrl ? '✓ Configured' : '✗ Not set');
     return redis;
   } catch (err) {
     console.warn('⚠️ Failed to initialize Redis:', err instanceof Error ? err.message : String(err));
